@@ -1,0 +1,18 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div *ngIf="task" class="taskdetails-container">
+                <h2>{{task.taskName}} Details</h2>
+                <div class="desc-container"><span>Last updated: </span>{{task.lastModified}}</div>
+                <div class="desc-container">
+                  <label for="task-name">Task Description: </label>
+                  <textarea id="task-description" [(ngModel)]="task.taskDescription" placeholder="Task Description"></textarea>
+                </div>
+                <button (click)="goBack()">go back</button>
+                <button (click)="save()">save</button>
+              </div>
+        </div>
+    </div>
+</div>
+
+

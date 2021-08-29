@@ -1,0 +1,135 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>com.github.hkaur29</groupId>
+  <artifactId>TodoList</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <!--   <relativePath>../pom.xml</relativePath> -->
+  </parent>
+ 
+ <!-- <groupId>com.github.kaur29</groupId> -->
+  <artifactId>angular8-todo-app</artifactId>
+  <name>angular8-todo-app</name>
+
+  <properties>
+    <node-version>v14.16.0</node-version>
+    <npm-version>6.14.11</npm-version>
+  </properties>
+
+  <build>
+    <plugins>
+    
+    	 <plugin>
+        <artifactId>maven-clean-plugin</artifactId>
+        <version>2.5</version>
+        <configuration>
+          <filesets>
+            <fileset>
+              <directory>dist</directory>
+              <includes>
+                <include>*</include>
+              </includes>
+            </fileset>
+          </filesets>
+        </configuration>
+      </plugin>
+      
+      <plugin>
+        <!-- Frontend Maven Plugin configuration -->
+        <groupId>com.github.eirslett</groupId>
+        <artifactId>frontend-maven-plugin</artifactId>
+        <version>1.8.0</version>
+        <configuration>
+          <nodeVersion>${node-version}</nodeVersion>
+          <npmVersion>${npm-version}</npmVersion>
+          <workingDirectory>src/main/web/</workingDirectory>
+        </configuration>
+        <executions>
+          <execution>
+            <id>install node and npm</id>
+            <goals>
+              <goal>install-node-and-npm</goal>
+            </goals>
+          </execution>
+
+          <execution>
+            <id>npm install</id>
+            <goals>
+              <goal>npm</goal>
+            </goals>
+          </execution>
+
+          <execution>
+            <id>npm run build</id>
+            <goals>
+              <goal>npm</goal>
+            </goals>
+
+            <configuration>
+              <arguments>run build</arguments>
+            </configuration>
+          </execution>
+           <execution>
+            <id>prod</id>
+            <goals>
+                <goal>npm</goal>
+            </goals>
+            <configuration>
+                <arguments>run-script build</arguments>
+            </configuration>
+            <phase>generate-resources</phase>
+        </execution>
+        </executions>
+      </plugin>
+      
+       <plugin>
+        <artifactId>maven-war-plugin</artifactId>
+        <version>3.2.2</version>
+        <configuration>
+            <failOnMissingWebXml>false</failOnMissingWebXml>
+
+            <!-- Add frontend folder to war package -->
+            <webResources>
+                <resource>
+                    <directory>../angular8-todo-app/dist/angular8-todo-app/</directory>
+                </resource>
+            </webResources>
+
+        </configuration>
+    </plugin>
+      
+     <!--  <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy-resources</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/classes/resources/</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>../angular8-todo-app/dist/angular8-todo-app/</directory>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <configuration>
+                    <packagingExcludes>WEB-INF/lib/tomcat-*.jar</packagingExcludes>
+                </configuration>
+            </plugin> -->
+    </plugins>
+   
+  </build>
+
+</project>

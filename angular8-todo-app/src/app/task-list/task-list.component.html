@@ -1,0 +1,46 @@
+
+<div class="container task-container">
+    <div class="row">
+        <div class="col-12">
+            <mat-card-actions>
+                <button mat-raised-button  class="logout" type="submit" color="primary" routerLink="/logout">Logout</button>
+            </mat-card-actions>
+            <h2>ToDoList</h2>
+            <div class="task-form">
+            <form class="example-form" (ngSubmit)="Submit()" #taskForm="ngForm">
+                <mat-form-field class="example-full-width" appearance="fill" >
+                  <mat-label>Task Name</mat-label>
+                  <input matInput placeholder="Ex. Travel" [(ngModel)]= "taskName" name="taskName" maxlength="30" required>
+                </mat-form-field>
+              
+                <mat-form-field class="example-full-width" appearance="fill">
+                  <mat-label>Task Description</mat-label>
+                  <textarea matInput placeholder="Ex. Book the flight..." [(ngModel)]= "taskDescription" name="taskDescription" maxlength="100" required></textarea>
+                </mat-form-field>
+
+                <mat-card-actions>
+                    <button mat-raised-button type="submit" color="primary" [disabled]="!taskForm.form.valid">Add</button>
+                </mat-card-actions>
+              </form>
+            </div>
+
+            <!--code for display begins-->
+              <div *ngIf="isTaskPresent" class="tasklist-container"> 
+                <ul class="tasks">
+                    <li *ngFor="let task of tasks">
+                        <input type="checkbox" [checked]="task.taskStatus" (click)="updateIsdone(task)">
+                        <a routerLink="/detail/{{task.taskId}}">
+                        <span class="badge">{{task.taskName}}</span>
+                        <span>{{task.taskDescription}}</span> 
+                      </a>
+                      <button (click)="deleteTask(task)" class="delete" title="delete task">x</button>
+                    </li>
+                  </ul>
+                </div>
+
+
+            <!--code for display end-->
+        </div>
+    </div>
+</div>
+
